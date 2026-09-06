@@ -18,7 +18,7 @@ app = FastAPI(title="ArthSaathi API", version="0.3.0", lifespan=lifespan)
 # FRONTEND_URL should be your deployed frontend's origin, e.g.
 # https://arthsaathi.vercel.app (no trailing slash). localhost:5173
 # stays allowed so local dev keeps working alongside the deployed version.
-allowed_origins = ["http://localhost:5173"]
+allowed_origins = ["http://localhost:5173","https://arthrakshak-three.vercel.app"]
 frontend_url = os.getenv("FRONTEND_URL")
 if frontend_url:
     allowed_origins.append(frontend_url)
