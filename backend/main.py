@@ -1,27 +1,36 @@
 # backend/main.py
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from api.routes import router
 from api.saheli import router as saheli_router
-from contextlib import asynccontextmanager
-from agents.llm_client import get_llm_client
+
 import os
 
-@asynccontextmanager
-async def lifespan(app):
-    print("Preloading model...")
-    get_llm_client()  # loads once, cached globally
-    yield
 
-app = FastAPI(title="ArthSaathi API", version="0.3.0", lifespan=lifespan)
+app = FastAPI(
+    title="ArthSaathi API",
+    version="0.3.0"
+)
 
-# FRONTEND_URL should be your deployed frontend's origin, e.g.
-# https://arthsaathi.vercel.app (no trailing slash). localhost:5173
-# stays allowed so local dev keeps working alongside the deployed version.
-allowed_origins = ["http://localhost:5173","https://arthrakshak-three.vercel.app"]
+
+# Allowed frontend origins
+# No trailing slash in origins.
+allowed_origins = [
+    "http://localhost:5173",
+    "https://arthrakshak-three.vercel.app",
+    "https://arthrakshak-aia271xby-shreyanshgupta1579-9505s-projects.vercel.app",
+]
+
+
+# Optional Render environment variable
 frontend_url = os.getenv("FRONTEND_URL")
+
 if frontend_url:
+    frontend_url = frontend_url.rstrip("/")
     allowed_origins.append(frontend_url)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,9 +40,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# API routes
 app.include_router(router)
 app.include_router(saheli_router)
 
+
+# Health check
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "ArthSaathi"}
+    return {
+        "status": "ok",
+        "service": "ArthSaathi"
+    }
