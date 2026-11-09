@@ -67,7 +67,7 @@ def ask_lakshmi(message: str) -> dict:
     )
 
     client = get_llm_client()
-    raw_response = client.generate(prompt, max_tokens=400, temperature=0.3)
+    raw_response = client.generate(prompt, max_tokens=800, temperature=0.3)
     final_response = apply_guardrail(raw_response)
 
     return {

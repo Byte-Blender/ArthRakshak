@@ -10,7 +10,7 @@ import os
 
 
 app = FastAPI(
-    title="ArthSaathi API",
+    title="ArthRakshak API",
     version="0.3.0"
 )
 
