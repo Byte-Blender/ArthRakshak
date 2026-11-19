@@ -53,4 +53,3 @@ The front-end dev server runs on `http://localhost:5173`, which is already in th
 ## Stack
 
 `Python` · `FastAPI` · `PostgreSQL` · `pgvector` · `SQLAlchemy` · `sentence-transformers` · `NetworkX` · `Twilio` · `React` · `Vite`
-<!-- File: README.md | Location: README.md -->
